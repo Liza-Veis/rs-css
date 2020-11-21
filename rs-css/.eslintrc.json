@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "linebreak-style": ["error", "windows"]
+    //  "no-underscore-dangle": [2, { "allowAfterThis": true }],
+    //  "no-param-reassign": [2, { "props": false }]
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "extends": "airbnb-base/legacy"
+}
