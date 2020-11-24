@@ -1,0 +1,286 @@
+.shelf {
+  display: flex;
+  position: relative;
+  align-items: flex-end;
+  z-index: 2;
+  > * {
+    margin: 0 20px;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 100%;
+    height: 5px;
+    border-radius: 10px;
+    background: black;
+    z-index: 15;
+    transform: translate(-50%);
+  }
+}
+
+pot {
+  display: block;
+  width: 65px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 40px solid brown;
+  position: relative;
+  &.bowl {
+    border: none;
+    height: 30px;
+    background-color: brown;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    top: 3px;
+    &::before {
+      top: 0;
+      width: 65px;
+    }
+    &::after {
+      top: -10px;
+      width: 75px;
+    }
+    flower,
+    rose,
+    sprout {
+      top: -40px;
+    }
+    cactus {
+      top: -80px;
+      left: 12px;
+      &.round {
+        top: -55px;
+        left: -2px;
+      }
+      flower {
+        top: 0;
+      }
+    }
+  }
+  &::after {
+    width: 80px;
+    height: 13px;
+    border-radius: 4px;
+    background-color: brown;
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &::before {
+    width: 70px;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 10px solid darken(brown, 10%);
+    content: '';
+    position: absolute;
+    top: -49px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+plate {
+  position: relative;
+  display: block;
+  &::before {
+    content: '';
+    position: absolute;
+    border-radius: 2px;
+    width: 70px;
+    height: 6px;
+    background: lighten(brown, 20%);
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 10;
+  }
+}
+
+sprout {
+  display: block;
+  position: absolute;
+  left: calc(50% - 1.5px);
+  top: -90px;
+  width: 4px;
+  height: 30px;
+  background-color: green;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    width: 20px;
+    height: 10px;
+    background-color: green;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+flower {
+  display: block;
+  position: absolute;
+  left: calc(50% - 1.5px);
+  top: -90px;
+  z-index: -1;
+
+  div:nth-child(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35px;
+    height: 40px;
+    background-color: red;
+    border-radius: 0px 0px 50% 50%;
+    transform: translate(-50%, -100%);
+    clip-path: polygon(0% 10%, 0% 100%, 100% 100%, 100% 10%, 75% 30%, 50% 0%, 25% 30%);
+    box-shadow: inset -6px 0px darken(red, 10%);
+  }
+  div:nth-child(2) {
+    width: 4px;
+    height: 40px;
+    background-color: green;
+  }
+}
+
+rose {
+  display: block;
+  position: absolute;
+  left: calc(50% - 1.5px);
+  top: -90px;
+  z-index: -1;
+  div:nth-child(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35px;
+    height: 40px;
+    background-color: red;
+    border-radius: 5px 5px 50% 50%;
+    transform: translate(-50%, -100%);
+    box-shadow: inset -6px 0px darken(red, 10%);
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 10px;
+      border-radius: 50%;
+      top: -3px;
+      background-color: darken(red, 20%);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      width: 75%;
+      height: 5px;
+      border-radius: 50%;
+      top: 1px;
+      left: 5px;
+      background-color: darken(red, 30%);
+    }
+  }
+  div:nth-child(2) {
+    width: 4px;
+    height: 40px;
+    background-color: green;
+  }
+}
+
+cactus {
+  display: block;
+  position: absolute;
+  left: 7px;
+  top: -125px;
+  z-index: -1;
+  width: 40px;
+  height: 70px;
+  background: green;
+  border-radius: 50px 50px 0 0;
+  border: 4px solid darken(green, 10%);
+  border-bottom: none;
+  &::before {
+    content: '';
+    position: absolute;
+    background: darken(green, 5%);
+    border: 4px solid darken(green, 10%);
+    width: 50%;
+    height: 115%;
+    left: 50%;
+    top: -4px;
+    transform: translateX(-50%);
+    border-radius: 40% 40% 0 0;
+    border-bottom: none;
+  }
+  flower {
+    left: 50%;
+    top: 0px;
+    z-index: 4;
+    div:nth-child(1) {
+      width: 25px;
+      height: 25px;
+    }
+  }
+  &.round {
+    left: -8px;
+    top: -105px;
+    width: 70px;
+    height: 50px;
+    border-radius: 60px 60px 45px 45px;
+    border-bottom: 4px solid darken(green, 10%);
+    &::before {
+      content: '';
+      width: 75%;
+      height: 130%;
+      position: absolute;
+      background: darken(green, 5%);
+      border-radius: 90%;
+      border: 4px solid darken(green, 10%);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      background: green;
+      width: 30%;
+      height: 125%;
+      left: 50%;
+      top: -4px;
+      transform: translateX(-50%);
+      border-radius: 90%;
+      border: 4px solid darken(green, 10%);
+    }
+  }
+}
+
+@keyframes activeStart {
+  0% {
+    transform: skew(0deg, 0deg) scaleY(1);
+    animation-timing-function: ease-in;
+  }
+  40% {
+    transform: skew(0deg, 0deg) scaleY(0.9);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: skew(2deg, 0deg) scaleX(1);
+  }
+}
+
+@keyframes active {
+  0% {
+    transform: skew(1deg, 0deg) scaleX(1);
+  }
+  10% {
+    transform: skew(1deg, 0deg) scaleY(0.9);
+  }
+  50% {
+    transform: skew(-1deg, 0deg) scaleX(1);
+  }
+  60% {
+    transform: skew(-1deg, 0deg) scaleY(0.9);
+  }
+  100% {
+    transform: skew(1deg, 0deg) scaleX(1);
+  }
+}
