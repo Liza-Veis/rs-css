@@ -60,28 +60,72 @@ pot {
     }
   }
   &::after {
-    width: 80px;
-    height: 13px;
-    border-radius: 4px;
-    background-color: brown;
     content: '';
     position: absolute;
     top: -60px;
     left: 50%;
+    width: 80px;
+    height: 13px;
+    border-radius: 4px;
+    background-color: brown;
     transform: translateX(-50%);
   }
   &::before {
-    width: 70px;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
-    border-top: 10px solid darken(brown, 10%);
     content: '';
+    width: 70px;
     position: absolute;
     top: -49px;
     left: 50%;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 10px solid darken(brown, 10%);
     transform: translateX(-50%);
   }
 }
+
+#cup {
+  width: 60px;
+  height: 40px;
+  border: none;
+  background: brown;
+  border-radius: 3px;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  top: 3px;
+  &::before {
+    width: 59px;
+    top: 10px;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    z-index: 1;
+  }
+  &::after {
+    width: 22px;
+    height: 24px;
+    border-radius: 0;
+    top: 5px;
+    left: 100%;
+    border: 6px solid brown;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 28px;
+    background: transparent;
+  }
+  sprout {
+    top: -29px;
+    z-index: -1;
+  }
+  flower,
+  rose {
+    top: -30px;
+  }
+  cactus {
+    top: -70px;
+    &.round {
+      top: -50px;
+    }
+  }
+}
+
 plate {
   position: relative;
   display: block;
@@ -92,7 +136,7 @@ plate {
     width: 70px;
     height: 6px;
     background: lighten(brown, 20%);
-    top: 85%;
+    bottom: 0;
     left: 50%;
     transform: translate(-50%);
     z-index: 10;
@@ -125,7 +169,6 @@ flower {
   left: calc(50% - 1.5px);
   top: -90px;
   z-index: -1;
-
   div:nth-child(1) {
     position: absolute;
     top: 0;
@@ -164,6 +207,7 @@ rose {
     &::before {
       content: '';
       position: absolute;
+      display: block;
       width: 100%;
       height: 10px;
       border-radius: 50%;
@@ -253,7 +297,7 @@ cactus {
   }
 }
 
-@keyframes activeStart {
+@keyframes waverStart {
   0% {
     transform: skew(0deg, 0deg) scaleY(1);
     animation-timing-function: ease-in;
@@ -267,7 +311,7 @@ cactus {
   }
 }
 
-@keyframes active {
+@keyframes waver {
   0% {
     transform: skew(1deg, 0deg) scaleX(1);
   }

@@ -100,18 +100,22 @@ module.exports = {
         collapseWhitespace: isProd
       }
     }),
-    //  new CopyPlugin({
-    // patterns: [
-    //   {
-    //     from: path.resolve(__dirname, 'src/assets'),
-    //     to: path.resolve(__dirname, 'dist/assets')
-    //   }
-    //   {
-    //     from: path.resolve(__dirname, 'src/favicon.ico'),
-    //     to: path.resolve(__dirname, 'dist')
-    //   }
-    // ]
-    //  }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/levels.html'),
+          to: path.resolve(__dirname, 'dist')
+        },
+        {
+          from: path.resolve(__dirname, 'src/assets'),
+          to: path.resolve(__dirname, 'dist/assets')
+        }
+        // {
+        //   from: path.resolve(__dirname, 'src/favicon.ico'),
+        //   to: path.resolve(__dirname, 'dist')
+        // }
+      ]
+    }),
     new MiniCssExtractPlugin({
       filename: filename('css')
     })
@@ -128,7 +132,7 @@ module.exports = {
         use: cssLoaders('sass-loader')
       },
       {
-        test: /\.(png|jpe?g|gif)$/,
+        test: /\.(png|jpe?g|gif|svg)$/,
         use: [
           {
             loader: 'file-loader',
