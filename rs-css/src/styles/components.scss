@@ -18,6 +18,9 @@
     z-index: 15;
     transform: translate(-50%);
   }
+  .hovered {
+    filter: drop-shadow(2px 0px 2px #73a3ff) drop-shadow(-2px 0px 2px #73a3ff);
+  }
 }
 
 pot {
@@ -294,37 +297,5 @@ cactus {
       border-radius: 90%;
       border: 4px solid darken(green, 10%);
     }
-  }
-}
-
-@keyframes waverStart {
-  0% {
-    transform: skew(0deg, 0deg) scaleY(1);
-    animation-timing-function: ease-in;
-  }
-  40% {
-    transform: skew(0deg, 0deg) scaleY(0.9);
-    animation-timing-function: ease-out;
-  }
-  100% {
-    transform: skew(2deg, 0deg) scaleX(1);
-  }
-}
-
-@keyframes waver {
-  0% {
-    transform: skew(1deg, 0deg) scaleX(1);
-  }
-  10% {
-    transform: skew(1deg, 0deg) scaleY(0.9);
-  }
-  50% {
-    transform: skew(-1deg, 0deg) scaleX(1);
-  }
-  60% {
-    transform: skew(-1deg, 0deg) scaleY(0.9);
-  }
-  100% {
-    transform: skew(1deg, 0deg) scaleX(1);
   }
 }

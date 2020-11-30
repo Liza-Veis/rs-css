@@ -115,7 +115,23 @@ body {
     padding-top: 10px;
     div {
       padding-left: 20px;
+      &.hovered {
+        color: blue;
+      }
     }
+  }
+}
+
+.hint {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px 15px;
+  background-color: white;
+  z-index: 10;
+  &.active {
+    display: block;
   }
 }
 
@@ -123,7 +139,25 @@ body {
 
 .game .active {
   transform-origin: bottom;
-  animation: waverStart 0.5s ease-out, waver 1s infinite;
+  animation: waver 1s infinite;
   animation-delay: 0s, 0s;
   animation-delay: 0s, 0.5s;
+}
+
+@keyframes waver {
+  0% {
+    transform: skew(1deg, 0deg) scaleX(1);
+  }
+  10% {
+    transform: skew(1deg, 0deg) scaleY(0.9);
+  }
+  50% {
+    transform: skew(-1deg, 0deg) scaleX(1);
+  }
+  60% {
+    transform: skew(-1deg, 0deg) scaleY(0.9);
+  }
+  100% {
+    transform: skew(1deg, 0deg) scaleX(1);
+  }
 }

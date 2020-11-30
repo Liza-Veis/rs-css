@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        flex-direction: column;
+        text-align: center;
+        overflow: auto;
+        padding: 50px 0;
+      }
+      .shelf {
+        min-height: 150px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- level 1 -->
+    <div>
+      <h3>level 1: select the pots</h3>
+      <div class="shelf">
+        <pot>
+          <sprout></sprout>
+        </pot>
+        <pot>
+          <sprout></sprout>
+        </pot>
+        <pot>
+          <sprout></sprout>
+        </pot>
+      </div>
+    </div>
+    <!-- level 2 -->
+    <div>
+      <h3>level 2: select the pot on the plate</h3>
+      <div class="shelf">
+        <pot>
+          <sprout></sprout>
+        </pot>
+        <plate>
+          <pot>
+            <sprout></sprout>
+          </pot>
+        </plate>
+        <pot>
+          <sprout></sprout>
+        </pot>
+      </div>
+    </div>
+    <!-- level 3 -->
+    <div>
+      <h3>level 3: select the bowl pots</h3>
+      <div class="shelf">
+        <pot class="bowl">
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+        <pot>
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+        <plate>
+          <pot class="bowl">
+            <sprout></sprout>
+          </pot>
+        </plate>
+      </div>
+    </div>
+    <!-- level 4 -->
+    <div>
+      <h3>level 4: select the cup</h3>
+      <div class="shelf">
+        <plate>
+          <pot>
+            <sprout></sprout>
+          </pot>
+        </plate>
+        <pot>
+          <rose>
+            <div></div>
+            <div></div>
+          </rose>
+        </pot>
+        <pot id="cup">
+          <sprout></sprout>
+        </pot>
+        <plate>
+          <pot>
+            <sprout></sprout>
+          </pot>
+        </plate>
+      </div>
+    </div>
+    <!-- level 5 -->
+    <div>
+      <h3>level 5: select all the things!</h3>
+      <div class="shelf">
+        <pot class="bowl">
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+        <pot class="bowl">
+          <sprout></sprout>
+        </pot>
+        <pot>
+          <rose>
+            <div></div>
+            <div></div>
+          </rose>
+        </pot>
+        <plate>
+          <pot>
+            <cactus> </cactus>
+          </pot>
+        </plate>
+      </div>
+    </div>
+    <!-- level 6 -->
+    <div>
+      <h3>level 6: Select every flower that's next to a cactus</h3>
+      <div class="shelf">
+        <plate>
+          <pot>
+            <flower>
+              <div></div>
+              <div></div>
+            </flower>
+          </pot>
+        </plate>
+        <pot class="bowl">
+          <cactus class="round"> </cactus>
+        </pot>
+        <pot id="cup">
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+        <pot class="bowl">
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+        <pot>
+          <cactus></cactus>
+        </pot>
+        <pot>
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+      </div>
+    </div>
+    <!-- level 7 -->
+    <div>
+      <h3>level 7: select the flowers directly on a pot</h3>
+      <div class="shelf">
+        <pot class="bowl">
+          <cactus>
+            <flower>
+              <div></div>
+            </flower>
+          </cactus>
+        </pot>
+        <pot>
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+        <plate>
+          <pot>
+            <flower>
+              <div></div>
+              <div></div>
+            </flower>
+          </pot>
+        </plate>
+        <plate>
+          <pot>
+            <cactus class="round">
+              <flower>
+                <div></div>
+              </flower>
+            </cactus>
+          </pot>
+        </plate>
+      </div>
+    </div>
+    <!-- level 8 -->
+    <div>
+      <h3>level 8: select the pots beside the plate</h3>
+      <div class="shelf">
+        <plate>
+          <pot>
+            <rose>
+              <div></div>
+              <div></div>
+            </rose>
+          </pot>
+        </plate>
+        <pot>
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+        <pot>
+          <sprout></sprout>
+        </pot>
+        <plate>
+          <pot>
+            <sprout></sprout>
+          </pot>
+        </plate>
+      </div>
+    </div>
+    <!-- level 9 -->
+    <div>
+      <h3>level 9: select the pots beside the plate</h3>
+      <div class="shelf">
+        <plate>
+          <pot>
+            <rose>
+              <div></div>
+              <div></div>
+            </rose>
+          </pot>
+        </plate>
+        <pot>
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+        <pot>
+          <sprout></sprout>
+        </pot>
+        <plate>
+          <pot>
+            <sprout></sprout>
+          </pot>
+        </plate>
+      </div>
+    </div>
+    <!-- <div class="shelf">
+      <plate>
+        <pot>
+          <flower>
+            <div></div>
+            <div></div>
+          </flower>
+        </pot>
+      </plate>
+      <plate>
+        <pot class="bowl">
+          <cactus></cactus>
+        </pot>
+      </plate>
+      <pot class="bowl">
+        <cactus class="round">
+          <flower><div></div></flower>
+        </cactus>
+      </pot>
+      <plate>
+        <pot>
+          <sprout> </sprout>
+        </pot>
+      </plate>
+      <pot>
+        <rose>
+          <div></div>
+          <div></div>
+        </rose>
+      </pot>
+      <pot>
+        <cactus>
+          <flower><div></div></flower>
+        </cactus>
+      </pot>
+    </div> -->
+  </body>
+</html>
