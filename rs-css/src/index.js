@@ -26,19 +26,26 @@ const editorMarkupWrapper = document.querySelector('.editor__markup');
 const shelf = document.querySelector('.shelf');
 
 const editor = document.querySelector('.editor');
-const btn = document.querySelector('.editor__btn');
 const input = document.querySelector('.editor__input');
+const submitBtn = document.querySelector('.editor__btn');
 const helpBtn = document.querySelector('.help');
+const resetProgressBtn = document.querySelector('.levels__btn');
 
 function setLevel() {
   game.classList.remove('win');
   input.value = '';
-  btn.disabled = false;
+  submitBtn.disabled = false;
   helpBtn.disabled = false;
   input.readOnly = false;
 
   const levelIdx = localStorage.getItem('curLevel') || 0;
   const level = levels[levelIdx];
+
+  const lastLevel = levelsWrapper.querySelector('.current');
+  if (lastLevel) {
+    lastLevel.classList.remove('current');
+  }
+  levelsWrapper.children[levelIdx].classList.add('current');
 
   title.textContent = level.title;
   shelf.innerHTML = level.markup;
@@ -90,10 +97,31 @@ levelsWrapper.addEventListener('click', (e) => {
   setLevel();
 });
 
+// set levels states
+
+function setLevelsStates() {
+  const progress = JSON.parse(localStorage.getItem('progress') || '{}');
+  levelsWrapper
+    .querySelectorAll('.hinted, .completed')
+    .forEach((elem) => elem.classList.remove('hinted', 'completed'));
+
+  Object.keys(progress).forEach((levelIdx) => {
+    levelsWrapper.children[levelIdx].classList.add(progress[levelIdx]);
+  });
+}
+
 // check selector
 
-function endLevel() {
+function endLevel(hinted) {
   const curLevel = +localStorage.getItem('curLevel');
+  const progress = JSON.parse(localStorage.getItem('progress') || '{}');
+
+  if (progress[curLevel] !== 'completed') {
+    progress[curLevel] = hinted ? 'hinted' : 'completed';
+    localStorage.setItem('progress', JSON.stringify(progress));
+  }
+
+  setLevelsStates();
 
   if (curLevel === levels.length - 1) {
     game.classList.add('win');
@@ -128,7 +156,7 @@ function checkSelector(selector) {
   }
 }
 
-btn.addEventListener('click', () => {
+submitBtn.addEventListener('click', () => {
   checkSelector(input.value);
 });
 
@@ -146,7 +174,7 @@ editor.addEventListener('animationend', () => editor.classList.remove('wrong'));
 helpBtn.addEventListener('click', () => {
   const level = levels[+localStorage.getItem('curLevel')];
   input.value = '';
-  btn.disabled = true;
+  submitBtn.disabled = true;
   helpBtn.disabled = true;
   input.readOnly = true;
 
@@ -158,7 +186,7 @@ helpBtn.addEventListener('click', () => {
 
     input.value += level.selector[input.value.length];
     setTimeout(() => {
-      print(endLevel);
+      print(() => endLevel(true));
     }, 150);
   }
 
@@ -167,7 +195,17 @@ helpBtn.addEventListener('click', () => {
   }, 300);
 });
 
+// reset
+resetProgressBtn.addEventListener('click', () => {
+  localStorage.setItem('progress', '{}');
+  localStorage.setItem('curLevel', 0);
+
+  setLevelsStates();
+  setLevel();
+});
+
 // start
 
 setLevel();
+setLevelsStates();
 highlight();
