@@ -1,4 +1,5 @@
 import './styles/style.scss';
+import highlight from './scripts/highlight';
 
 // create levels
 
@@ -19,12 +20,23 @@ levels.forEach((level, idx) => {
 levelsWrapper.appendChild(fragment);
 
 // set level
+const game = document.querySelector('.game');
 const title = document.querySelector('.task');
 const editorMarkupWrapper = document.querySelector('.editor__markup');
 const shelf = document.querySelector('.shelf');
-const hint = document.querySelector('.hint');
+
+const editor = document.querySelector('.editor');
+const btn = document.querySelector('.editor__btn');
+const input = document.querySelector('.editor__input');
+const helpBtn = document.querySelector('.help');
 
 function setLevel() {
+  game.classList.remove('win');
+  input.value = '';
+  btn.disabled = false;
+  helpBtn.disabled = false;
+  input.readOnly = false;
+
   const levelIdx = localStorage.getItem('curLevel') || 0;
   const level = levels[levelIdx];
 
@@ -78,84 +90,84 @@ levelsWrapper.addEventListener('click', (e) => {
   setLevel();
 });
 
-// highlight
+// check selector
 
-function getNesting(elem, wrapper) {
-  const parent = elem.parentElement;
-  const childrens = [...parent.children];
-  let arr = [];
+function endLevel() {
+  const curLevel = +localStorage.getItem('curLevel');
 
-  if (parent !== wrapper) {
-    arr = arr.concat(getNesting(parent, wrapper));
-  }
-
-  arr.push(childrens.indexOf(elem));
-  return arr;
-}
-
-function toggleHint(show, elem) {
-  if (!show) {
-    hint.classList.remove('active');
+  if (curLevel === levels.length - 1) {
+    game.classList.add('win');
     return;
   }
 
-  let targetElem = elem;
+  localStorage.setItem('curLevel', curLevel + 1);
+  setLevel();
+}
 
-  if (targetElem.children[0]) {
-    if (targetElem.children[0].tagName === 'DIV' && targetElem.children[0].children.length === 0) {
-      targetElem = targetElem.children[0];
-    }
+function checkSelector(selector) {
+  if (input.value === '.active') {
+    editor.classList.add('wrong');
+    return;
   }
 
-  hint.classList.add('active');
+  const elems = [...shelf.querySelectorAll('.active')];
+  let elemsToCheck;
+  try {
+    elemsToCheck = [...shelf.querySelectorAll(selector)];
+  } catch {
+    editor.classList.add('wrong');
+    return;
+  }
 
-  const box = targetElem.getBoundingClientRect();
-  let top;
-  if (targetElem.tagName === 'PLATE') {
-    top = box.bottom - parseFloat(window.getComputedStyle(elem, ':before').height);
+  const result = elems.every((elem, idx) => elemsToCheck[idx] === elem);
+
+  if (result) {
+    endLevel();
   } else {
-    top = box.top;
+    editor.classList.add('wrong');
+  }
+}
+
+btn.addEventListener('click', () => {
+  checkSelector(input.value);
+});
+
+input.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    checkSelector(input.value);
+  }
+});
+
+editor.addEventListener('animationend', () => editor.classList.remove('wrong'));
+
+// help
+
+helpBtn.addEventListener('click', () => {
+  const level = levels[+localStorage.getItem('curLevel')];
+  input.value = '';
+  btn.disabled = true;
+  helpBtn.disabled = true;
+  input.readOnly = true;
+
+  function print(cb) {
+    if (input.value === level.selector) {
+      cb();
+      return;
+    }
+
+    input.value += level.selector[input.value.length];
+    setTimeout(() => {
+      print(endLevel);
+    }, 150);
   }
 
-  hint.style.top = top + window.pageYOffset - hint.offsetHeight + 'px';
-  hint.style.left = box.right + window.pageXOffset + 10 + 'px';
+  setTimeout(() => {
+    print();
+  }, 300);
+});
 
-  const clonedElem = elem.cloneNode();
-  clonedElem.classList.remove('active', 'hovered');
-
-  hint.textContent = clonedElem.outerHTML.replace(' class=""', '');
-}
-
-function mouseover(elem, wrapper) {
-  if (elem === wrapper) return;
-  let targetElem = elem;
-
-  if (elem.tagName === 'DIV' && elem.children.length === 0 && elem.textContent === '') {
-    targetElem = targetElem.parentElement;
-  }
-
-  targetElem.classList.add('hovered');
-
-  const nesting = getNesting(targetElem, wrapper);
-  const oppositeWrapper = wrapper === shelf ? editorMarkupWrapper : shelf;
-  const oppositeElem = nesting.reduce((parent, pos) => parent.children[pos], oppositeWrapper);
-
-  let shelfElem = wrapper === shelf ? targetElem : oppositeElem;
-
-  oppositeElem.classList.add('hovered');
-
-  toggleHint(true, shelfElem);
-}
-
-function mouseout() {
-  document.querySelectorAll('.hovered').forEach((elem) => elem.classList.remove('hovered'));
-  toggleHint(false);
-}
-
-editorMarkupWrapper.addEventListener('mouseover', (e) => mouseover(e.target, e.currentTarget));
-editorMarkupWrapper.addEventListener('mouseout', mouseout);
-
-shelf.addEventListener('mouseover', (e) => mouseover(e.target, e.currentTarget));
-shelf.addEventListener('mouseout', mouseout);
+// start
 
 setLevel();
+highlight();
