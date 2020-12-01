@@ -48,36 +48,30 @@ function toggleHint(show, elem) {
   hint.textContent = clonedElem.outerHTML.replace(' class=""', '');
 }
 
-export default function highlight() {
-  function mouseover(elem, wrapper) {
-    if (elem === wrapper) return;
-    let targetElem = elem;
+function mouseover(elem, wrapper) {
+  if (elem === wrapper) return;
+  let targetElem = elem;
 
-    if (elem.tagName === 'DIV' && elem.children.length === 0 && elem.textContent === '') {
-      targetElem = targetElem.parentElement;
-    }
-
-    targetElem.classList.add('hovered');
-
-    const nesting = getNesting(targetElem, wrapper);
-    const oppositeWrapper = wrapper === shelf ? editorMarkupWrapper : shelf;
-    const oppositeElem = nesting.reduce((parent, pos) => parent.children[pos], oppositeWrapper);
-
-    let shelfElem = wrapper === shelf ? targetElem : oppositeElem;
-
-    oppositeElem.classList.add('hovered');
-
-    toggleHint(true, shelfElem);
+  if (elem.tagName === 'DIV' && elem.children.length === 0 && elem.textContent === '') {
+    targetElem = targetElem.parentElement;
   }
 
-  function mouseout() {
-    document.querySelectorAll('.hovered').forEach((elem) => elem.classList.remove('hovered'));
-    toggleHint(false);
-  }
+  targetElem.classList.add('hovered');
 
-  editorMarkupWrapper.addEventListener('mouseover', (e) => mouseover(e.target, e.currentTarget));
-  editorMarkupWrapper.addEventListener('mouseout', mouseout);
+  const nesting = getNesting(targetElem, wrapper);
+  const oppositeWrapper = wrapper === shelf ? editorMarkupWrapper : shelf;
+  const oppositeElem = nesting.reduce((parent, pos) => parent.children[pos], oppositeWrapper);
 
-  shelf.addEventListener('mouseover', (e) => mouseover(e.target, e.currentTarget));
-  shelf.addEventListener('mouseout', mouseout);
+  let shelfElem = wrapper === shelf ? targetElem : oppositeElem;
+
+  oppositeElem.classList.add('hovered');
+
+  toggleHint(true, shelfElem);
 }
+
+function mouseout() {
+  document.querySelectorAll('.hovered').forEach((elem) => elem.classList.remove('hovered'));
+  toggleHint(false);
+}
+
+export { mouseover, mouseout };

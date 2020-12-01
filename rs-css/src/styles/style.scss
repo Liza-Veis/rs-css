@@ -180,6 +180,19 @@ body {
   animation-delay: 0s, 0.5s;
 }
 
+.game.finish .active {
+  animation: finish 0.6s 1;
+}
+
+@keyframes finish {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-600px);
+  }
+}
+
 @keyframes waver {
   0% {
     transform: skew(1deg, 0deg) scaleX(1);

@@ -1,9 +1,13 @@
 {
   "rules": {
     "linebreak-style": ["error", "windows"],
-    "no-tabs": [2, { "allowIndentationTabs": true }]
-    //  "no-underscore-dangle": [2, { "allowAfterThis": true }],
-    //  "no-param-reassign": [2, { "props": false }]
+    "no-tabs": [2, { "allowIndentationTabs": true }],
+    "object-curly-newline": [
+      2,
+      {
+        "ExportDeclaration": { "minProperties": 5 }
+      }
+    ]
   },
   "env": {
     "browser": true,
