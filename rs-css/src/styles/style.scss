@@ -143,17 +143,44 @@ body {
   }
   &__input {
     margin-top: 10px;
+    width: 100%;
+    cursor: text;
+    background-color: white;
+    color: black;
+    &.empty {
+      color: rgba(0, 0, 0, 0.5);
+      user-select: none;
+    }
+    .first-level {
+      color: brown;
+    }
+    .second-level {
+      color: blue;
+    }
+    .third-level {
+      color: cadetblue;
+    }
+    .fourth-level {
+      color: #ff0054;
+    }
   }
   &__btn {
     margin-top: 10px;
   }
   &__markup {
     padding-top: 10px;
+    color: darkblue;
     div {
       padding-left: 20px;
       &.hovered {
-        color: blue;
+        filter: hue-rotate(70deg);
       }
+    }
+    .attribute {
+      color: crimson;
+    }
+    .value {
+      color: darkgreen;
     }
   }
 }

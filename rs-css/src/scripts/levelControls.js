@@ -1,6 +1,7 @@
 import { levels } from './levels';
 import { levelsWrapper, editorMarkupWrapper, shelf, title, game } from './elements';
-import { lockInput } from './input';
+import { getMarkup } from './markup';
+import input from './input';
 
 function createLevels() {
   const fragment = document.createDocumentFragment();
@@ -18,7 +19,8 @@ function createLevels() {
 }
 
 function setLevel() {
-  lockInput(false);
+  input.lockInput(false);
+  game.classList.remove('win');
 
   const levelIdx = localStorage.getItem('curLevel') || 0;
   const level = levels[levelIdx];
@@ -34,41 +36,7 @@ function setLevel() {
   shelf.innerHTML = level.markup;
   shelf.querySelectorAll(level.selector).forEach((elem) => elem.classList.add('active'));
 
-  const tags = level.markup
-    .replace(/[\t\n]/g, '')
-    .split('<')
-    .slice(1)
-    .map((elem) => elem.trim());
-
-  let editorMarkup = '';
-
-  for (let i = 0; i < tags.length; i += 1) {
-    const tag = tags[i];
-    if (tag === 'div>' && tags[i + 1] === '/div>') {
-      tags.splice(i, 2);
-      i -= 2;
-    } else if ('/' + tag === tags[i + 1]) {
-      tags.splice(i, 2, tag.replace('>', ' />'));
-      i -= 1;
-    }
-  }
-
-  tags.forEach((elem) => {
-    const tag = `&lt;${elem.replace('>', '&gt;')}`;
-
-    if (tag.endsWith('/&gt;')) {
-      editorMarkup += `<div>${tag}</div>`;
-    } else if (tag.startsWith('&lt;/')) {
-      editorMarkup += `${tag}</div>`;
-    } else {
-      editorMarkup += `<div>${tag}`;
-    }
-  });
-
-  editorMarkupWrapper.innerHTML = `
-	&lt;div class="shelf"&gt;
-	${editorMarkup}
-	&lt;/div&gt;`;
+  editorMarkupWrapper.innerHTML = getMarkup(level.markup);
 }
 
 function setLevelStates() {
@@ -98,7 +66,7 @@ function endLevel(withHint) {
     setLevelStates();
 
     if (curLevel === levels.length - 1) {
-      lockInput(true);
+      input.lockInput(true);
       game.classList.add('win');
     } else {
       localStorage.setItem('curLevel', curLevel + 1);

@@ -4,7 +4,7 @@ const shelf = document.querySelector('.shelf');
 
 const editor = document.querySelector('.editor');
 const game = document.querySelector('.game');
-const input = document.querySelector('.editor__input');
+const inputElem = document.querySelector('.editor__input');
 const title = document.querySelector('.task');
 
 const submitBtn = document.querySelector('.editor__btn');
@@ -17,7 +17,7 @@ export {
   shelf,
   editor,
   game,
-  input,
+  inputElem,
   title,
   submitBtn,
   helpBtn,

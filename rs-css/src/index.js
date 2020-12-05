@@ -1,16 +1,14 @@
 import './styles/style.scss';
-import { mouseover, mouseout } from './scripts/highlight';
+import { mouseover, mouseout } from './scripts/hover';
 import { createLevels, setLevel, setLevelStates, endLevel } from './scripts/levelControls';
 import { checkSelector } from './scripts/checkSelector';
-import { lockInput } from './scripts/input';
+import input from './scripts/input';
 
 import { levels } from './scripts/levels';
 import {
   levelsWrapper,
   editorMarkupWrapper,
   shelf,
-  game,
-  input,
   submitBtn,
   helpBtn,
   resetProgressBtn
@@ -20,18 +18,16 @@ levelsWrapper.addEventListener('click', (e) => {
   const target = e.target.closest('span');
   if (!target) return;
 
-  const level = +target.textContent - 1;
+  const level = target.textContent - 1;
   localStorage.setItem('curLevel', level);
-
-  game.classList.remove('win');
   setLevel();
 });
 
 submitBtn.addEventListener('click', () => {
-  checkSelector();
+  checkSelector(input.value);
 });
 
-input.addEventListener('keyup', (e) => {
+input.on('keyup', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
     checkSelector(input.value);
@@ -42,31 +38,14 @@ helpBtn.addEventListener('click', () => {
   const levelIdx = +localStorage.getItem('curLevel');
   const level = levels[levelIdx];
 
-  lockInput(true);
-
-  function print(cb) {
-    if (input.value === level.selector) {
-      cb();
-      return;
-    }
-
-    input.value += level.selector[input.value.length];
-    setTimeout(() => {
-      print(() => endLevel(true));
-    }, 150);
-  }
-
   setTimeout(() => {
-    print();
+    input.print(level.selector, () => endLevel(true));
   }, 300);
 });
 
 resetProgressBtn.addEventListener('click', () => {
   localStorage.setItem('progress', '{}');
   localStorage.setItem('curLevel', 0);
-
-  game.classList.remove('win');
-
   setLevelStates();
   setLevel();
 });

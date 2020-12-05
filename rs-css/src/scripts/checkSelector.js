@@ -1,8 +1,8 @@
-import { editor, input, shelf } from './elements';
+import { editor, shelf } from './elements';
 import { endLevel } from './levelControls';
 
-function checkSelector() {
-  if (input.value === '.active') {
+function checkSelector(selector) {
+  if (selector === '.active') {
     editor.classList.add('wrong');
     return;
   }
@@ -10,7 +10,7 @@ function checkSelector() {
   const elems = [...shelf.querySelectorAll('.active')];
   let elemsToCheck;
   try {
-    elemsToCheck = [...shelf.querySelectorAll(input.value)];
+    elemsToCheck = [...shelf.querySelectorAll(selector)];
   } catch {
     editor.classList.add('wrong');
     return;
@@ -19,7 +19,7 @@ function checkSelector() {
   const result = elems.every((elem, idx) => elemsToCheck[idx] === elem);
 
   if (result) {
-    endLevel();
+    endLevel(false);
   } else {
     editor.classList.add('wrong');
   }
