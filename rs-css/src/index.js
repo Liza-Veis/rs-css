@@ -30,10 +30,10 @@ function toggleNav(add) {
 }
 
 levelsWrapper.addEventListener('click', (e) => {
-  const target = e.target.closest('span');
+  const target = e.target.closest('.level');
   if (!target) return;
 
-  const level = target.textContent - 1;
+  const level = target.dataset.idx - 1;
   localStorage.setItem('curLevel', level);
   setLevel();
   toggleNav(false);

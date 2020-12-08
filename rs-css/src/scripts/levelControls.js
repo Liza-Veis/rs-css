@@ -8,9 +8,11 @@ function createLevels() {
 
   levels.forEach((level, idx) => {
     const elem = document.createElement('span');
-    elem.innerHTML = `<svg>
-  <use xlink:href="#check-icon" href="#check-icon"></use>
-  </svg>${idx + 1}`;
+    elem.classList.add('level');
+    elem.dataset.idx = idx + 1;
+    elem.innerHTML = `
+	 <svg><use xlink:href="#check-icon" href="#check-icon"></use></svg>
+    <span class="level__number">${idx + 1}</span> ${level.syntax}`;
 
     fragment.appendChild(elem);
   });

@@ -30,11 +30,11 @@ function checkSelector(selector) {
     };
   } else {
     editor.classList.add('wrong');
-    editor.onanimationend = () => {
-      editor.classList.remove('wrong');
-      editor.onanimationend = null;
-    };
   }
 }
+
+editor.addEventListener('animationend', () => {
+  editor.classList.remove('wrong');
+});
 
 export { checkSelector };

@@ -28,8 +28,10 @@
     top: 111%;
     background: linear-gradient(#1b150a, transparent);
   }
-  .hovered {
-    filter: drop-shadow(2px 0px 2px currentColor) drop-shadow(-2px 0px 2px currentColor);
+  @media (hover: hover) and (pointer: fine) {
+    .hovered {
+      filter: drop-shadow(2px 0px 2px currentColor) drop-shadow(-2px 0px 2px currentColor);
+    }
   }
 }
 
@@ -214,7 +216,7 @@ flower {
   }
   &[color='purple'] div:nth-child(1) {
     background-color: #a621aa;
-    box-shadow: inset -6px 0px darken(#8d1a9d, 10%);
+    box-shadow: inset -6px 0px #571061;
   }
   &[color='beige'] div:nth-child(1) {
     background-color: #e1c378;
@@ -271,6 +273,16 @@ rose {
     width: 4px;
     height: 30px;
     background-color: green;
+  }
+  &[color='purple'] div:nth-child(1) {
+    background-color: #a621aa;
+    box-shadow: inset -6px 0px #70147c;
+    &::before {
+      background-color: darken(#a621aa, 20%);
+    }
+    &::after {
+      background-color: darken(#a621aa, 30%);
+    }
   }
 }
 

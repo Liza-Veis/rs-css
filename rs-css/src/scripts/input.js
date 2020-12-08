@@ -157,9 +157,16 @@ class Input {
       for (let i = 0; i < arr.length; i += 1) {
         let bracketOpenIdx = arr.lastIndexOf('[', i);
         let bracketCloseIdx = arr.indexOf(']', bracketOpenIdx);
+        let roundBracketOpenIdx = arr.lastIndexOf('(', i);
+        let roundBracketCloseIdx = arr.indexOf(')', roundBracketOpenIdx);
+
         if (bracketOpenIdx !== -1 && bracketCloseIdx === -1) {
           output += arr[i];
         } else if (bracketOpenIdx !== -1 && bracketCloseIdx > i) {
+          output += arr[i];
+        } else if (roundBracketOpenIdx !== -1 && roundBracketCloseIdx === -1) {
+          output += arr[i];
+        } else if (roundBracketOpenIdx !== -1 && roundBracketCloseIdx > i) {
           output += arr[i];
         } else if (!args.includes(arr[i])) {
           output += arr[i];
@@ -200,7 +207,7 @@ class Input {
       let position = 0;
       for (let i = 0; i < this.input.childNodes.length; i += 1) {
         let childNode = this.input.childNodes[i];
-        if (childNode.nodeType === 1) {
+        if (childNode.nodeType === 1 && anchorNode.nodeType !== 1) {
           childNode = childNode.childNodes[0];
         }
 
