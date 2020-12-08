@@ -1,6 +1,6 @@
 import './styles/style.scss';
 import { mouseover, mouseout } from './scripts/hover';
-import { createLevels, setLevel, setLevelStates, endLevel } from './scripts/levelControls';
+import { createLevels, setLevel, setLevelStates } from './scripts/levelControls';
 import { checkSelector } from './scripts/checkSelector';
 import input from './scripts/input';
 
@@ -54,9 +54,7 @@ helpBtn.addEventListener('click', () => {
   const levelIdx = +localStorage.getItem('curLevel');
   const level = levels[levelIdx];
 
-  setTimeout(() => {
-    input.print(level.selector, () => endLevel(true));
-  }, 400);
+  input.print(level.selector, () => helpBtn.classList.add('active'));
 });
 
 resetProgressBtn.addEventListener('click', () => {

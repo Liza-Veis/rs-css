@@ -10,7 +10,8 @@ function checkSelector(selector) {
   const elems = [...shelf.querySelectorAll('.active')];
   let elemsToCheck;
   try {
-    elemsToCheck = [...shelf.querySelectorAll(selector.replace(/\s/g, ' '))].filter((elem) => {
+    elemsToCheck = [...shelf.querySelectorAll(selector.replace(/\s/g, ' '))];
+    elemsToCheck = elemsToCheck.filter((elem) => {
       return !(elem.tagName === 'DIV' && elem.children.length === 0);
     });
   } catch {
@@ -21,7 +22,7 @@ function checkSelector(selector) {
   const result = elems.every((elem, idx) => elemsToCheck[idx] === elem);
 
   if (result) {
-    endLevel(false);
+    endLevel();
   } else if (elemsToCheck.length > 0) {
     elemsToCheck.forEach((elem) => elem.classList.add('wrong'));
     shelf.onanimationend = () => {

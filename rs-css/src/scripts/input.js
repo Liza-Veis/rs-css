@@ -23,9 +23,11 @@ class Input {
     this.input.textContent = value;
   }
 
-  lockInput(lock) {
-    this.value = '';
-    this.blur();
+  lockInput(lock, reset) {
+    if (reset !== false) {
+      this.value = '';
+      this.blur();
+    }
 
     if (lock) {
       submitBtn.disabled = true;
@@ -38,23 +40,26 @@ class Input {
     }
   }
 
-  print(str, callback) {
+  print(str, callback, speed = 150, timeout = '400') {
     this.lockInput(true);
     this.value = '';
     this.input.classList.remove('empty');
 
-    const printChar = () => {
-      if (this.value === str) {
-        callback();
-        return;
-      }
+    setTimeout(() => {
+      const printChar = () => {
+        if (this.value === str) {
+          this.lockInput(false, false);
+          callback();
+          return;
+        }
 
-      this.value += str[this.value.length];
-      this.highlight();
-      setTimeout(printChar, 150);
-    };
+        this.value += str[this.value.length];
+        this.highlight();
+        setTimeout(printChar, speed);
+      };
 
-    printChar();
+      printChar();
+    }, timeout);
   }
 
   blur() {
@@ -91,12 +96,18 @@ class Input {
           const spanCloseIdx = arr.join('').indexOf('</span>', i + 1);
           const bracketOpenIdx = arr.lastIndexOf('[', i);
           const bracketCloseIdx = arr.indexOf(']', bracketOpenIdx);
+          const roundBracketOpenIdx = arr.lastIndexOf('(', i);
+          const roundBracketCloseIdx = arr.indexOf(')', roundBracketOpenIdx);
           const colonIdx = arr.lastIndexOf(':', i);
           const lastSpaceIdx = arr.lastIndexOf(' ', i);
 
           if (bracketOpenIdx !== -1 && bracketCloseIdx === -1) {
             output += arr[i];
           } else if (bracketOpenIdx !== -1 && bracketCloseIdx > i) {
+            output += arr[i];
+          } else if (roundBracketOpenIdx !== -1 && roundBracketCloseIdx === -1) {
+            output += arr[i];
+          } else if (roundBracketOpenIdx !== -1 && roundBracketCloseIdx > i) {
             output += arr[i];
           } else if (arr[i] !== ':' && colonIdx !== -1 && colonIdx > lastSpaceIdx) {
             output += arr[i];
