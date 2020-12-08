@@ -11,8 +11,23 @@ import {
   shelf,
   submitBtn,
   helpBtn,
-  resetProgressBtn
+  resetProgressBtn,
+  main,
+  nav,
+  navIcon,
+  overlay
 } from './scripts/elements';
+
+function toggleNav(add) {
+  if (add !== undefined) {
+    navIcon.classList.toggle('active', add);
+  } else {
+    navIcon.classList.toggle('active');
+  }
+  main.scrollTop = 0;
+  nav.classList.toggle('active', navIcon.classList.contains('active'));
+  document.body.classList.toggle('lock', navIcon.classList.contains('active'));
+}
 
 levelsWrapper.addEventListener('click', (e) => {
   const target = e.target.closest('span');
@@ -21,6 +36,7 @@ levelsWrapper.addEventListener('click', (e) => {
   const level = target.textContent - 1;
   localStorage.setItem('curLevel', level);
   setLevel();
+  toggleNav(false);
 });
 
 submitBtn.addEventListener('click', () => {
@@ -40,7 +56,7 @@ helpBtn.addEventListener('click', () => {
 
   setTimeout(() => {
     input.print(level.selector, () => endLevel(true));
-  }, 300);
+  }, 400);
 });
 
 resetProgressBtn.addEventListener('click', () => {
@@ -48,6 +64,7 @@ resetProgressBtn.addEventListener('click', () => {
   localStorage.setItem('curLevel', 0);
   setLevelStates();
   setLevel();
+  toggleNav(false);
 });
 
 editorMarkupWrapper.addEventListener('mouseover', (e) => mouseover(e.target, e.currentTarget));
@@ -55,6 +72,9 @@ editorMarkupWrapper.addEventListener('mouseout', mouseout);
 
 shelf.addEventListener('mouseover', (e) => mouseover(e.target, e.currentTarget));
 shelf.addEventListener('mouseout', mouseout);
+
+navIcon.addEventListener('click', () => toggleNav());
+overlay.addEventListener('click', () => toggleNav(false));
 
 createLevels();
 setLevel();

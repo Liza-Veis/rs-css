@@ -1,0 +1,120 @@
+@media (max-height: 930px) {
+  .editor {
+    margin-top: 30px;
+  }
+  .game {
+    margin-top: 10px;
+  }
+}
+
+@media (max-height: 900px) {
+  .content {
+    padding-top: 60px;
+  }
+  .task {
+    font-size: 40px;
+    max-width: 500px;
+  }
+}
+
+@media (max-height: 870px) {
+  .editor {
+    margin-bottom: 15px;
+    margin-top: 30px;
+  }
+  .content {
+    padding-top: 40px;
+  }
+  .task {
+    font-size: 40px;
+    max-width: 500px;
+  }
+}
+
+@media (max-height: 840px) {
+  .editor {
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+  .editor__window:first-child {
+    margin-bottom: 10px;
+  }
+  .content {
+    padding-top: 40px;
+  }
+  .task {
+    font-size: 40px;
+    max-width: 500px;
+  }
+}
+
+@media (max-height: 800px) {
+  .content {
+    padding-top: 30px;
+  }
+  .task {
+    font-size: 35px;
+    max-width: 450px;
+    line-height: 1.1;
+  }
+  .footer {
+    img {
+      width: 80px;
+    }
+  }
+}
+
+@media (max-width: 1180px) {
+  .levels-icon {
+    display: block;
+  }
+  .levels {
+    transform: translate(100%);
+    transition: all 0.5s ease-out;
+    z-index: 10;
+    &.active {
+      transform: none;
+    }
+  }
+  .container {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 950px) {
+  .content {
+    padding-top: 80px;
+  }
+  .editor {
+    margin-bottom: 20px;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 830px) {
+  .hint {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 740px) {
+  .game {
+    margin-top: 0;
+  }
+  .editor {
+    width: 95%;
+    &__btn {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  .help {
+    left: 10px;
+  }
+  .levels-icon {
+    right: 10px;
+  }
+  .shelf > * {
+    margin: 0 13px;
+  }
+}

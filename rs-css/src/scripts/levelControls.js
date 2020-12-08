@@ -34,9 +34,16 @@ function setLevel() {
 
   title.textContent = level.title;
   shelf.innerHTML = level.markup;
-  shelf.querySelectorAll(level.selector).forEach((elem) => elem.classList.add('active'));
+  shelf.querySelectorAll(level.selector).forEach((elem) => {
+    if (elem.tagName === 'DIV' && elem.children.length === 0) {
+      return;
+    }
+    elem.classList.add('active');
+  });
 
   editorMarkupWrapper.innerHTML = getMarkup(level.markup);
+  game.classList.add('start');
+  game.onanimationend = () => game.classList.remove('start');
 }
 
 function setLevelStates() {

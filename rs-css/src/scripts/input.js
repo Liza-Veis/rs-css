@@ -91,10 +91,14 @@ class Input {
           const spanCloseIdx = arr.join('').indexOf('</span>', i + 1);
           const bracketOpenIdx = arr.lastIndexOf('[', i);
           const bracketCloseIdx = arr.indexOf(']', bracketOpenIdx);
+          const colonIdx = arr.lastIndexOf(':', i);
+          const lastSpaceIdx = arr.lastIndexOf(' ', i);
 
           if (bracketOpenIdx !== -1 && bracketCloseIdx === -1) {
             output += arr[i];
           } else if (bracketOpenIdx !== -1 && bracketCloseIdx > i) {
+            output += arr[i];
+          } else if (arr[i] !== ':' && colonIdx !== -1 && colonIdx > lastSpaceIdx) {
             output += arr[i];
           } else {
             if (spanIdx !== -1 && spanIdx < endIdx) {
@@ -104,6 +108,12 @@ class Input {
             }
 
             let strToInsert = arr.slice(i, endIdx + 1).join('');
+
+            if (spanIdx === -1 && spanCloseIdx !== -1) {
+              endIdx = spanCloseIdx + 7;
+            } else if (spanIdx !== -1 && spanCloseIdx < spanIdx) {
+              endIdx = spanCloseIdx + 7;
+            }
 
             if (spanCloseIdx !== -1 && spanCloseIdx < endIdx) {
               output += '</span>';

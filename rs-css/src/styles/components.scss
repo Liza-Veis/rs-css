@@ -3,6 +3,7 @@
   position: relative;
   align-items: flex-end;
   z-index: 2;
+  color: #ffe7cc;
   > * {
     margin: 0 20px;
   }
@@ -14,22 +15,33 @@
     width: 100%;
     height: 5px;
     border-radius: 10px;
-    background: black;
+    background: #752114;
     z-index: 15;
     transform: translate(-50%);
+    box-shadow: 0px -2px 10px rgba(255, 255, 255, 0.1);
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    top: 111%;
+    background: linear-gradient(#1b150a, transparent);
   }
   .hovered {
-    filter: drop-shadow(2px 0px 2px #73a3ff) drop-shadow(-2px 0px 2px #73a3ff);
+    filter: drop-shadow(2px 0px 2px currentColor) drop-shadow(-2px 0px 2px currentColor);
   }
 }
 
 pot {
   display: block;
-  width: 65px;
+  width: 60px;
+  position: relative;
+  top: 1px;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-top: 40px solid brown;
-  position: relative;
+  border-top: 35px solid brown;
+
   &.bowl {
     border: none;
     height: 30px;
@@ -39,23 +51,23 @@ pot {
     top: 3px;
     &::before {
       top: 0;
-      width: 65px;
+      width: 62px;
     }
     &::after {
       top: -10px;
-      width: 75px;
+      width: 68px;
     }
     flower,
     rose,
     sprout {
-      top: -40px;
+      top: -35px;
     }
     cactus {
-      top: -80px;
-      left: 12px;
+      top: -70px;
+      left: 10px;
       &.round {
         top: -55px;
-        left: -2px;
+        left: -4px;
       }
       flower {
         top: 0;
@@ -65,19 +77,19 @@ pot {
   &::after {
     content: '';
     position: absolute;
-    top: -60px;
+    top: -52px;
     left: 50%;
-    width: 80px;
+    width: 70px;
     height: 13px;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: brown;
     transform: translateX(-50%);
   }
   &::before {
     content: '';
-    width: 70px;
+    width: 64px;
     position: absolute;
-    top: -49px;
+    top: -40px;
     left: 50%;
     border-left: 3px solid transparent;
     border-right: 3px solid transparent;
@@ -114,12 +126,15 @@ pot {
     background: transparent;
   }
   sprout {
-    top: -29px;
+    top: -30px;
     z-index: -1;
   }
   flower,
   rose {
     top: -30px;
+    div:nth-child(2) {
+      height: 30px;
+    }
   }
   cactus {
     top: -70px;
@@ -136,10 +151,10 @@ plate {
     content: '';
     position: absolute;
     border-radius: 2px;
-    width: 70px;
+    width: 65px;
     height: 6px;
     background: lighten(brown, 20%);
-    bottom: 0;
+    bottom: 0px;
     left: 50%;
     transform: translate(-50%);
     z-index: 10;
@@ -149,8 +164,8 @@ plate {
 sprout {
   display: block;
   position: absolute;
-  left: calc(50% - 1.5px);
-  top: -90px;
+  left: calc(50% - 2px);
+  top: -80px;
   width: 4px;
   height: 30px;
   background-color: green;
@@ -169,15 +184,15 @@ sprout {
 flower {
   display: block;
   position: absolute;
-  left: calc(50% - 1.5px);
-  top: -90px;
+  left: calc(50% - 2px);
+  top: -80px;
   z-index: -1;
   div:nth-child(1) {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 35px;
-    height: 40px;
+    top: 1px;
+    left: 50%;
+    width: 30px;
+    height: 35px;
     background-color: red;
     border-radius: 0px 0px 50% 50%;
     transform: translate(-50%, -100%);
@@ -186,8 +201,32 @@ flower {
   }
   div:nth-child(2) {
     width: 4px;
-    height: 40px;
+    height: 30px;
     background-color: green;
+  }
+  &[color='pink'] div:nth-child(1) {
+    background-color: #e1085a;
+    box-shadow: inset -6px 0px darken(#e1085a, 10%);
+  }
+  &[color='yellow'] div:nth-child(1) {
+    background-color: #e1b508;
+    box-shadow: inset -6px 0px darken(#e1b508, 10%);
+  }
+  &[color='purple'] div:nth-child(1) {
+    background-color: #a621aa;
+    box-shadow: inset -6px 0px darken(#8d1a9d, 10%);
+  }
+  &[color='beige'] div:nth-child(1) {
+    background-color: #e1c378;
+    box-shadow: inset -6px 0px #b49958;
+  }
+  &[color='orange'] div:nth-child(1) {
+    background-color: #ff8300;
+    box-shadow: inset -6px 0px #d45900;
+  }
+  &[color='coral'] div:nth-child(1) {
+    background-color: #ff4f4f;
+    box-shadow: inset -6px 0px #da3e3e;
   }
 }
 
@@ -195,14 +234,14 @@ rose {
   display: block;
   position: absolute;
   left: calc(50% - 1.5px);
-  top: -90px;
+  top: -80px;
   z-index: -1;
   div:nth-child(1) {
     position: absolute;
-    top: 0;
+    top: 1px;
     left: 0;
-    width: 35px;
-    height: 40px;
+    width: 30px;
+    height: 35px;
     background-color: red;
     border-radius: 5px 5px 50% 50%;
     transform: translate(-50%, -100%);
@@ -224,13 +263,13 @@ rose {
       height: 5px;
       border-radius: 50%;
       top: 1px;
-      left: 5px;
+      left: 4px;
       background-color: darken(red, 30%);
     }
   }
   div:nth-child(2) {
     width: 4px;
-    height: 40px;
+    height: 30px;
     background-color: green;
   }
 }
@@ -238,11 +277,11 @@ rose {
 cactus {
   display: block;
   position: absolute;
-  left: 7px;
-  top: -125px;
+  left: 4px;
+  top: -115px;
   z-index: -1;
   width: 40px;
-  height: 70px;
+  height: 65px;
   background: green;
   border-radius: 50px 50px 0 0;
   border: 4px solid darken(green, 10%);
@@ -255,7 +294,7 @@ cactus {
     width: 50%;
     height: 115%;
     left: 50%;
-    top: -4px;
+    top: -3px;
     transform: translateX(-50%);
     border-radius: 40% 40% 0 0;
     border-bottom: none;
@@ -265,15 +304,15 @@ cactus {
     top: 0px;
     z-index: 4;
     div:nth-child(1) {
-      width: 25px;
-      height: 25px;
+      width: 23px;
+      height: 23px;
     }
   }
   &.round {
-    left: -8px;
-    top: -105px;
-    width: 70px;
-    height: 50px;
+    left: -10px;
+    top: -97px;
+    width: 68px;
+    height: 48px;
     border-radius: 60px 60px 45px 45px;
     border-bottom: 4px solid darken(green, 10%);
     &::before {

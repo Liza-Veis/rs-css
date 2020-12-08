@@ -1,4 +1,5 @@
 @import '~normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600&family=Inconsolata:wght@400;500&&display=swap');
 
 * {
   margin: 0;
@@ -13,30 +14,102 @@
 
 body {
   overflow: hidden;
-  background: #ccd5ae;
+  background-color: #2e2a23;
+  font-family: 'Exo 2', sans-serif;
+  color: #9f9690;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.3);
+  background: rgba(255, 247, 224, 0.2);
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  display: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+.overlay {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.lock .overlay {
+  opacity: 1;
+  visibility: visible;
 }
 
 .container {
-  padding-right: 250px;
+  padding-right: 350px;
 }
 
 .content {
+  padding-top: 80px;
+  position: relative;
   height: 100vh;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden auto;
+  & > * {
+    flex-shrink: 0;
+  }
 }
 
 .levels {
-  overflow: auto;
-  position: absolute;
+  position: fixed;
   height: 100%;
-  width: 250px;
+  width: 350px;
+  padding-top: 40px;
   top: 0;
   right: 0;
-  padding: 40px 30px 30px;
-  background-color: burlywood;
+  background-color: #221e18;
+  overflow: auto;
   &__title {
-    font-size: 22px;
+    padding: 0 30px;
+    font-size: 20px;
     margin-bottom: 20px;
+    font-weight: 600;
   }
   &__wrapper {
     display: flex;
@@ -44,37 +117,87 @@ body {
     align-items: flex-start;
     padding-bottom: 50px;
     span {
-      margin-bottom: 10px;
-      padding-left: 10px;
-      font-size: 20px;
-      opacity: 0.7;
+      padding: 3px 30px;
+      width: 100%;
+      font-size: 16px;
       cursor: pointer;
+      color: #9f9690;
+      opacity: 0.7;
+      transition: all 0.2s ease;
       svg {
         width: 15px;
         height: 15px;
         margin-right: 15px;
-        fill: grey;
+        fill: currentColor;
       }
       &.current {
+        background-color: rgba(255, 255, 255, 0.07);
         opacity: 1;
+      }
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.07);
       }
       &.completed {
         svg {
-          fill: green;
+          fill: #3cae1c;
         }
       }
       &.hinted {
         svg {
-          fill: yellow;
+          fill: #eebd02;
         }
       }
     }
   }
   &__btn {
-    margin: 0 auto;
     display: block;
-    width: 90%;
+    margin: 0 auto 40px;
     height: 40px;
+    width: 290px;
+    border: 2px solid currentColor;
+    transition: all 0.2s ease;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+  }
+  &-icon {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 25px;
+    width: 35px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 15;
+    span {
+      top: calc(50% - 1px);
+      left: 0px;
+      position: absolute;
+      height: 2px;
+      background-color: currentColor;
+      width: 100%;
+      transition: all 0.3s ease;
+      &:first-child {
+        top: 0;
+      }
+      &:last-child {
+        top: auto;
+        bottom: 0;
+      }
+    }
+    &.active {
+      span {
+        transform: scale(0);
+        &:first-child {
+          transform: rotate(-45deg);
+          top: calc(50% - 1px);
+        }
+        &:last-child {
+          transform: rotate(45deg);
+          bottom: calc(50% - 1px);
+        }
+      }
+    }
   }
 }
 
@@ -84,7 +207,6 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background-color: antiquewhite;
   .winner {
     display: none;
   }
@@ -92,7 +214,7 @@ body {
     align-items: center;
     .winner {
       display: block;
-      font-style: 2.5rem;
+      font-size: 30px;
     }
     .shelf {
       display: none;
@@ -102,86 +224,156 @@ body {
 
 .task {
   text-align: center;
-  padding: 20px;
   font-size: 45px;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
 .help {
-  padding: 10px 20px;
+  position: absolute;
   display: block;
-  margin: 0 auto;
+  top: 20px;
+  left: 25px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  font-size: 24px;
+  color: inherit;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+  }
+  &:disabled {
+    background-color: transparent;
+  }
 }
 
 .editor {
   width: 90%;
-  margin: 50px auto 0;
-  display: flex;
-  border-radius: 4px;
-  border: 8px solid rgb(27, 21, 21);
-  overflow: hidden;
-  &.wrong {
-    animation: wrong 0.1s 5;
-  }
-  &__panel {
-    width: 50%;
-  }
+  margin: 50px auto 20px;
+  max-width: 700px;
+  font-size: 15px;
+  font-family: 'Inconsolata', monospace;
+  color: #c3c3c3;
   &__header {
     display: flex;
     padding: 10px 15px;
     justify-content: space-between;
   }
   &__window {
-    padding-right: 10px;
     display: flex;
     align-items: flex-start;
+    background-color: #1e1a16;
+    border-radius: 3px;
+    overflow: hidden;
+    &:first-child {
+      margin-bottom: 15px;
+      align-items: center;
+      background-color: #dad3bb;
+    }
   }
   &__numbers {
+    min-width: 40px;
     margin-right: 10px;
     padding: 10px;
     text-align: right;
-    background: #00000054;
+    background-color: #4a463e;
   }
   &__input {
-    margin-top: 10px;
     width: 100%;
+    margin-right: 10px;
+    min-height: 1em;
     cursor: text;
-    background-color: white;
-    color: black;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 500;
+    color: #472200;
+    outline: none;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    white-space: nowrap;
     &.empty {
-      color: rgba(0, 0, 0, 0.5);
+      color: rgba(0, 0, 0, 0.7);
       user-select: none;
     }
     .first-level {
-      color: brown;
+      color: #090590;
     }
     .second-level {
-      color: blue;
+      color: #9f3400;
     }
     .third-level {
-      color: cadetblue;
+      color: #a50036;
     }
     .fourth-level {
-      color: #ff0054;
+      color: #006101;
     }
   }
   &__btn {
-    margin-top: 10px;
+    align-self: stretch;
+    padding: 5px 30px;
+    margin: 0;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4c453d;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: #595148;
+    }
+    &:disabled {
+      background-color: #4c453d;
+    }
   }
   &__markup {
     padding-top: 10px;
-    color: darkblue;
+    color: #c3c8cc;
+    cursor: default;
     div {
       padding-left: 20px;
       &.hovered {
-        filter: hue-rotate(70deg);
+        color: #51a8f0;
+        .attribute {
+          color: #eda805;
+        }
+        .value {
+          color: #8ede00;
+        }
       }
     }
     .attribute {
-      color: crimson;
+      color: #dabc57;
     }
     .value {
-      color: darkgreen;
+      color: #b5e477;
     }
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: auto;
+  margin-bottom: 0;
+  background-color: #26241e;
+  color: #6f6b60;
+  font-size: 15px;
+  > span {
+    margin-left: 30px;
+    a {
+      color: #a9a196;
+      text-decoration: none;
+    }
+  }
+  img {
+    display: block;
+    width: 90px;
   }
 }
 
@@ -191,8 +383,9 @@ body {
   top: 0;
   left: 0;
   padding: 8px 15px;
-  background-color: white;
-  z-index: 10;
+  background-color: #dad3bb;
+  color: rgba(0, 0, 0, 0.7);
+  z-index: 20;
   &.active {
     display: block;
   }
@@ -208,7 +401,31 @@ body {
 }
 
 .game.finish .active {
-  animation: finish 0.6s 1;
+  animation: finish 0.6s;
+}
+
+.game.start .shelf {
+  animation: start 0.4s;
+}
+
+.game .wrong,
+.editor.wrong {
+  animation: wrong 0.1s 5;
+}
+
+@keyframes start {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+    transform-origin: center;
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes finish {
@@ -252,3 +469,5 @@ body {
     transform: translateX(5px);
   }
 }
+
+@import './media.scss';

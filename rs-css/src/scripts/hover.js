@@ -1,6 +1,4 @@
-const editorMarkupWrapper = document.querySelector('.editor__markup');
-const shelf = document.querySelector('.shelf');
-const hint = document.querySelector('.hint');
+import { editorMarkupWrapper, shelf, hint, main } from './elements';
 
 function getNesting(elem, wrapper) {
   const parent = elem.parentElement;
@@ -40,8 +38,8 @@ function toggleHint(show, elem) {
     top = box.top;
   }
 
-  hint.style.top = top + window.pageYOffset - hint.offsetHeight + 'px';
-  hint.style.left = box.right + window.pageXOffset + marginLeft + 'px';
+  hint.style.top = top + main.scrollTop - hint.offsetHeight + 'px';
+  hint.style.left = box.right + marginLeft + 'px';
 
   const clonedElem = elem.cloneNode();
   clonedElem.classList.remove('active', 'hovered');
